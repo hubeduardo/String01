@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -48,7 +49,8 @@ public class CervejariaController {
     }
 
     @PostMapping
-    public CervejaDTO create(@RequestBody CreateCervejaDTO createCervejaDTO){
+    @ResponseStatus(HttpStatus.CREATED)
+    public CervejaDTO create(@RequestBody @Valid CreateCervejaDTO createCervejaDTO){
       CervejaDTO cervejaDTO =   new CervejaDTO(createCervejaDTO, cervejaDTOList.size() + 1);
       cervejaDTOList.add(cervejaDTO);
       return  cervejaDTO;
